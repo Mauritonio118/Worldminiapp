@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import MiniKitProvider from "@/components/minikit-provider";
+import MiniKitProvider from "../components/minikit-provider";
 import dynamic from "next/dynamic";
-import NextAuthProvider from "@/components/next-auth-provider";
+import NextAuthProvider from "../components/next-auth-provider";
+import { GameProvider } from "../context/GameContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   const ErudaProvider = dynamic(
     () => import("../components/Eruda").then((c) => c.ErudaProvider),
     {
-      ssr: false,
+      ssr: true,
     }
   );
   return (
@@ -28,9 +29,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <ErudaProvider>
-            <MiniKitProvider>
-              {children}
-            </MiniKitProvider>
+            <GameProvider>
+              <MiniKitProvider>
+                {children}
+              </MiniKitProvider>
+            </GameProvider>
           </ErudaProvider>
         </NextAuthProvider>
       </body>

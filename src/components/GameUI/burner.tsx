@@ -46,12 +46,6 @@ export function Burner() {
 
     if(finalPayload.status === "success"){
       const totalMinted = Number(responseData.args)/10**18;
-
-      setClicksForMint((prevClicks) => {
-        const newClicks = prevClicks - totalMinted;
-        console.log("Actualizando clicksForMint:", newClicks);
-        return newClicks;
-      });
     
       setPointsForSecond((prevPoints) => {
         const newPoints = prevPoints + totalMinted;
